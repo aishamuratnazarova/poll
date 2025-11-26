@@ -20,7 +20,6 @@
             --border-color: #e5e5e5;
             --radius: 12px;
             --container-width: 1240px;
-            /* Высота шапки для расчета отступа корзины */
             --header-height: 145px; 
         }
 
@@ -36,7 +35,6 @@
             background-color: #fff;
             color: var(--text-dark);
             line-height: 1.5;
-            /* Важно: sticky работает внутри body */
             height: 100%; 
         }
 
@@ -51,7 +49,7 @@
             width: 100%;
         }
 
-        /* --- TOP BAR (Уезжает при скролле) --- */
+        /* --- HEADER --- */
         .top-bar {
             border-bottom: 1px solid var(--border-color);
             padding: 8px 0;
@@ -65,14 +63,12 @@
         .top-bar .container { display: flex; align-items: center; }
         .location i { color: var(--primary); margin-right: 5px; }
 
-        /* --- STICKY HEADER (Закрепленная шапка) --- */
         .sticky-header {
-            /* Теперь шапка является прямым потомком body (или wrapper), поэтому sticky работает */
             position: sticky;
             top: 0; 
             z-index: 1000;
             background-color: #fff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Тень для выделения */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             padding-bottom: 5px;
         }
 
@@ -156,21 +152,20 @@
         }
         .nav-links li:hover { color: var(--primary); cursor: pointer; }
 
-        /* --- GLOBAL GRID LAYOUT --- */
+        /* --- GLOBAL GRID --- */
         .global-grid {
             display: grid;
-            grid-template-columns: 1fr 280px; /* Контент слева, корзина справа */
+            grid-template-columns: 1fr 280px;
             gap: 20px;
-            align-items: start; /* Важно: выравнивание по верху */
+            align-items: start;
             margin-top: 20px;
         }
 
-        /* Колонка со всем основным контентом */
         .content-column {
             display: flex;
             flex-direction: column;
-            gap: 40px; /* Отступы между блоками */
-            min-width: 0; /* Фикс переполнения */
+            gap: 40px;
+            min-width: 0;
         }
 
         /* --- HERO BANNER --- */
@@ -229,42 +224,24 @@
         .nav-arrow.left { left: 20px; }
         .nav-arrow.right { right: 20px; }
 
-        /* --- STICKY SIDEBAR CART --- */
+        /* --- SIDEBAR CART --- */
         .sidebar-cart {
             border: 1px solid var(--border-color);
             border-radius: var(--radius);
             padding: 20px;
             text-align: center;
             background: #fff;
-            
-            /* Делаем корзину липкой */
             position: sticky;
-            /* Отступ сверху равен высоте закрепленной шапки + небольшой зазор */
             top: calc(var(--header-height) + 20px); 
             z-index: 900;
-            
             min-height: 450px;
             display: flex;
             flex-direction: column;
         }
-        
         .sidebar-cart h3 { text-align: left; margin-bottom: 40px; font-size: 18px; }
-        
-        .cart-content-top {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .empty-cart-icon {
-            font-size: 60px;
-            color: #ddd;
-            margin-bottom: 20px;
-            margin-top: 40px;
-        }
+        .cart-content-top { flex-grow: 1; display: flex; flex-direction: column; align-items: center; }
+        .empty-cart-icon { font-size: 60px; color: #ddd; margin-bottom: 20px; margin-top: 40px; }
         .cart-text { font-size: 14px; color: var(--text-gray); margin-bottom: 30px; }
-        
         .btn-full {
             width: 100%;
             padding: 12px;
@@ -280,11 +257,7 @@
         .section-title { font-size: 24px; margin-bottom: 20px; font-weight: 600; }
         @media(min-width: 768px) { .section-title { font-size: 28px; } }
         
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
+        .categories-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
         .cat-card {
             background-color: #eefbfc;
             border-radius: var(--radius);
@@ -299,40 +272,34 @@
         }
         .cat-card:hover { transform: translateY(-3px); }
         .cat-title { font-weight: 500; font-size: 14px; width: 70%; line-height: 1.3;}
-        .cat-img {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            font-size: 40px;
-            color: #8edce6;
-        }
+        .cat-img { position: absolute; bottom: 10px; right: 10px; font-size: 40px; color: #8edce6; }
 
-        /* --- PRODUCTS GRID --- */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
+        /* --- PRODUCT CARDS (UPDATED) --- */
+        .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 
         .product-card {
             background: #fff;
-            border: 1px solid transparent;
+            border: 1px solid transparent; 
             border-radius: var(--radius);
             padding: 15px;
             position: relative;
-            transition: box-shadow 0.2s;
+            transition: all 0.2s;
             display: flex;
             flex-direction: column;
         }
+        
         .product-card:hover {
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            border-color: #eee;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            border-color: #eee; 
+            z-index: 5;
         }
 
         .card-top-icons {
             display: flex;
             justify-content: space-between;
             margin-bottom: 10px;
+            position: relative;
+            z-index: 3;
         }
         .icon-btn { color: var(--primary); cursor: pointer; }
         .tag {
@@ -344,15 +311,47 @@
             font-weight: bold;
         }
 
-        .prod-img {
+        /* КОНТЕЙНЕР ДЛЯ ФОТО И КНОПКИ (НОВОЕ) */
+        .card-image-container {
+            position: relative;
             width: 100%;
-            height: 140px;
-            object-fit: contain;
+            height: 160px; /* Фиксируем высоту зоны картинки */
             margin-bottom: 15px;
-            align-self: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
         }
 
-        .price-block { margin-bottom: 10px; }
+        .prod-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        /* КНОПКА-ПЛЮС НА КАРТИНКЕ */
+        .floating-btn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            transform: translate(0, 10%); /* Свешиваем кнопку */
+            z-index: 10;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* КНОПКА-КОЛИЧЕСТВО НА КАРТИНКЕ */
+        .floating-qty {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, 10%); 
+            width: 90%;
+            z-index: 10;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background: white;
+        }
+
+        .price-block { margin-bottom: 5px; margin-top: 10px;}
         .current-price { font-size: 18px; font-weight: 700; margin-right: 10px; }
         .old-price { font-size: 13px; color: #999; text-decoration: line-through; }
 
@@ -369,34 +368,26 @@
         }
         .prod-manuf { font-size: 12px; color: #999; margin-bottom: 15px; }
 
-        .card-actions {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end; 
-            margin-top: auto;
-            width: 100%;
-        }
-        
+        /* Стили кнопок */
         .qty-control {
             display: flex;
             align-items: center;
             justify-content: space-between; 
             width: 100%; 
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            padding: 6px 15px;
-            margin-top: 5px; 
+            background: #fff;
+            border-radius: 30px; 
+            padding: 8px 15px;
         }
         
-        .qty-btn { background: none; border: none; font-size: 16px; cursor: pointer; padding: 0 5px; color: #555;}
-        .qty-val { margin: 0 10px; font-size: 14px; font-weight: 500; }
+        .qty-btn { background: none; border: none; font-size: 20px; cursor: pointer; padding: 0 5px; color: #1d1d1d;}
+        .qty-val { margin: 0 10px; font-size: 16px; font-weight: 500; }
         
         .add-btn {
-            width: 36px;
-            height: 36px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             border: none;
-            font-size: 18px;
+            font-size: 20px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -405,20 +396,19 @@
         }
         
         .add-btn.primary { background-color: var(--primary); color: white; }
-        .add-btn.dark { background-color: #1d1d1d; color: white; }
+        
         .add-btn.white {
             background-color: #fff;
             color: var(--primary);
-            border: 1px solid #eee;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            border: none;
         }
-        .add-btn.white:hover { border-color: var(--primary); }
+        .add-btn.white:hover { color: var(--primary-dark); }
+
 
         /* --- SEO TEXT --- */
         .seo-section { color: #444; }
         .seo-section h2 { font-size: 24px; margin-bottom: 20px; }
         .seo-section p { font-size: 14px; margin-bottom: 15px; line-height: 1.6; }
-        .seo-section ul { list-style: disc; margin-left: 20px; margin-bottom: 15px; font-size: 14px;}
 
         /* --- FOOTER --- */
         footer {
@@ -428,16 +418,9 @@
             font-size: 14px;
             margin-top: 60px;
         }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 40px;
-            margin-bottom: 40px;
-        }
+        .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-bottom: 40px; }
         .footer-col h4 { font-weight: 700; margin-bottom: 20px; }
         .footer-col ul li { margin-bottom: 12px; color: #555; cursor: pointer; }
-        
-        .phone { font-size: 20px; font-weight: 700; margin-bottom: 5px; display: block;}
         .btn-outline {
             border: 1px solid #1d1d1d;
             background: transparent;
@@ -447,155 +430,64 @@
             margin-top: 15px;
             display: inline-block;
         }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-            color: #999;
-            margin-top: 20px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .scroll-top {
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--primary);
-            border-radius: 50%;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #999; margin-top: 20px; flex-wrap: wrap; gap: 10px; }
+        .scroll-top { width: 40px; height: 40px; border: 1px solid var(--primary); border-radius: 50%; color: var(--primary); display: flex; align-items: center; justify-content: center; cursor: pointer; }
 
         /* --- MEDIA QUERIES --- */
-
         @media (max-width: 1024px) {
-            .global-grid {
-                grid-template-columns: 1fr; /* Корзина исчезнет или уйдет вниз */
-            }
-            .sidebar-cart {
-                display: none; /* Скрываем корзину на планшете */
-            }
-            .categories-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            .products-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
+            .global-grid { grid-template-columns: 1fr; }
+            .sidebar-cart { display: none; }
+            .categories-grid, .products-grid { grid-template-columns: repeat(3, 1fr); }
         }
-
         @media (max-width: 768px) {
-            .header-grid {
-                flex-direction: column;
-                align-items: stretch;
-            }
+            .header-grid { flex-direction: column; align-items: stretch; }
             .search-bar { order: 2; width: 100%; margin: 10px 0; }
             .logo { order: 1; align-self: flex-start; }
             .user-actions { order: 1; position: absolute; top: 23px; right: 15px; }
-            
-            .hero-content {
-                flex-direction: column;
-                text-align: center;
-                padding: 20px;
-            }
-            .hero-text { margin-bottom: 20px; }
-            .hero-text h2 { font-size: 24px; }
+            .hero-content { flex-direction: column; text-align: center; padding: 20px; }
             .hero-img-placeholder { width: 100%; height: 200px; }
-            
-            .categories-grid {
-                display: flex; 
-                overflow-x: auto; 
-                gap: 15px;
-                padding-bottom: 10px;
-            }
-            .cat-card {
-                min-width: 160px;
-                flex-shrink: 0; 
-            }
-
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-            .product-card { padding: 10px; }
-            .prod-img { height: 100px; }
-            
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            .footer-bottom {
-                flex-direction: column;
-                text-align: center;
-            }
+            .categories-grid { display: flex; overflow-x: auto; gap: 15px; padding-bottom: 10px; }
+            .cat-card { min-width: 160px; flex-shrink: 0; }
+            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+            .footer-bottom { flex-direction: column; text-align: center; }
         }
-
     </style>
 </head>
 <body>
 
-    <!-- 1. Верхняя полоса с адресом (Уезжает при скролле) -->
     <div class="top-bar">
         <div class="container">
             <div class="location"><i class="fas fa-map-marker-alt"></i> Санкт-Петербург</div>
         </div>
     </div>
     
-    <!-- 2. Основная шапка (ЗАКРЕПЛЕНА) -->
-    <!-- position: sticky применяется прямо к тегу header, который находится внутри body -->
     <header class="sticky-header">
         <div class="main-header">
             <div class="container header-grid">
                 <a href="#" class="logo">pharm.ru</a>
-                
                 <div class="search-bar">
                     <input type="text" placeholder="Найти товар от аллергии">
                     <button><i class="fas fa-search"></i></button>
                 </div>
-
                 <div class="user-actions">
-                    <div class="action-item">
-                        <i class="fas fa-percent"></i>
-                        <span>Акции</span>
-                    </div>
-                    <div class="action-item">
-                        <i class="fas fa-shopping-basket"></i>
-                        <span>Корзина</span>
-                    </div>
-                    <div class="action-item">
-                        <i class="fas fa-sign-in-alt"></i>
-                        <span>Войти</span>
-                    </div>
+                    <div class="action-item"><i class="fas fa-percent"></i><span>Акции</span></div>
+                    <div class="action-item"><i class="fas fa-shopping-basket"></i><span>Корзина</span></div>
+                    <div class="action-item"><i class="fas fa-sign-in-alt"></i><span>Войти</span></div>
                 </div>
             </div>
         </div>
         <div class="container nav-links">
             <ul>
-                <li>Лекарственные средства</li>
-                <li>Витамины</li>
-                <li>БАД</li>
-                <li>Мед. изделия</li>
-                <li>Мед. техника</li>
-                <li>Мама и малыш</li>
-                <li>Спорт</li>
-                <li>Гигиена</li>
-                <li>Косметика</li>
+                <li>Лекарственные средства</li><li>Витамины</li><li>БАД</li><li>Мед. изделия</li><li>Мед. техника</li><li>Мама и малыш</li><li>Спорт</li><li>Гигиена</li><li>Косметика</li>
             </ul>
         </div>
     </header>
 
     <main class="container">
-        
-        <!-- 3. Глобальная сетка: Контент слева, Закрепленная корзина справа -->
         <div class="global-grid">
-            
-            <!-- Левая колонка (Контент) -->
             <div class="content-column">
                 
-                <!-- Баннер -->
                 <div class="hero-banner">
                     <div class="nav-arrow left"><i class="fas fa-chevron-left"></i></div>
                     <div class="nav-arrow right"><i class="fas fa-chevron-right"></i></div>
@@ -611,189 +503,187 @@
                     <div class="ad-badge">Реклама</div>
                 </div>
 
-                <!-- Популярные категории -->
                 <div>
                     <h2 class="section-title">Популярные категории</h2>
                     <div class="categories-grid">
-                        <div class="cat-card">
-                            <div class="cat-title">Для желудочно-кишечного тракта</div>
-                            <i class="fas fa-pills cat-img"></i>
-                        </div>
-                        <div class="cat-card">
-                            <div class="cat-title">Для желудочно-кишечного тракта</div>
-                            <i class="fas fa-prescription-bottle cat-img"></i>
-                        </div>
-                        <div class="cat-card">
-                            <div class="cat-title">Помощь иммунитету в сезон ОРВИ</div>
-                            <i class="fas fa-shield-virus cat-img"></i>
-                        </div>
-                        <div class="cat-card">
-                            <div class="cat-title">Лекарства от простуды и гриппа</div>
-                            <i class="fas fa-tablets cat-img"></i>
-                        </div>
+                        <div class="cat-card"><div class="cat-title">Для желудочно-кишечного тракта</div><i class="fas fa-pills cat-img"></i></div>
+                        <div class="cat-card"><div class="cat-title">Для желудочно-кишечного тракта</div><i class="fas fa-prescription-bottle cat-img"></i></div>
+                        <div class="cat-card"><div class="cat-title">Помощь иммунитету в сезон ОРВИ</div><i class="fas fa-shield-virus cat-img"></i></div>
+                        <div class="cat-card"><div class="cat-title">Лекарства от простуды и гриппа</div><i class="fas fa-tablets cat-img"></i></div>
                     </div>
                 </div>
 
-                <!-- Вы искали -->
+                <!-- БЛОК "ВЫ ИСКАЛИ" С ОБНОВЛЕННЫМ ДИЗАЙНОМ КНОПОК -->
                 <div>
                     <h2 class="section-title">Вы искали</h2>
                     <div class="products-grid">
-                        <!-- Товар 1 -->
+                        
+                        <!-- Карточка 1: Выбор количества (Максиколд) -->
                         <div class="product-card">
                             <div class="card-top-icons">
                                 <div><i class="far fa-heart icon-btn"></i> <i class="fas fa-balance-scale icon-btn" style="margin-left:5px;"></i></div>
                                 <span class="tag">Акция</span>
                             </div>
-                            <img src="./images/it1.png" class="prod-img" alt="Максиколд">
-                            <div class="price-block">
-                                <span class="current-price">от 579 ₽</span>
-                                <span class="old-price">789 ₽</span>
-                            </div>
-                            <div class="prod-name">Эссенциале форте Н капс. 300мг №90</div>
-                            <div class="prod-manuf">Опелла Хелскеа</div>
-                            <div class="card-actions">
-                                <div class="qty-control">
+                            
+                            <!-- Контейнер с фото и кнопкой -->
+                            <div class="card-image-container">
+                                <img src="https://placehold.co/150x150/png?text=Maxicold" class="prod-img" alt="Product">
+                                <!-- Кнопка количества плавает здесь -->
+                                <div class="qty-control floating-qty">
                                     <button class="qty-btn">−</button>
                                     <span class="qty-val">1</span>
                                     <button class="qty-btn">+</button>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Товар 2 -->
-                        <div class="product-card">
-                            <div class="card-top-icons">
-                                <div><i class="far fa-heart icon-btn"></i></div>
-                                <span class="tag">Акция</span>
-                            </div>
-                            <img src="./images/it2.png" class="prod-img" alt="Максиколд">
                             <div class="price-block">
                                 <span class="current-price">от 579 ₽</span>
                                 <span class="old-price">789 ₽</span>
                             </div>
                             <div class="prod-name">Эссенциале форте Н капс. 300мг №90</div>
                             <div class="prod-manuf">Опелла Хелскеа</div>
-                            <div class="card-actions">
-                                <button class="add-btn primary"><i class="fas fa-plus"></i></button>
-                            </div>
                         </div>
 
-                        <!-- Товар 3 -->
+                        <!-- Карточка 2: Белая кнопка (Амбене) -->
                         <div class="product-card">
                             <div class="card-top-icons">
-                                <div><i class="far fa-heart icon-btn"></i></div>
+                                <div><i class="far fa-heart icon-btn"></i> <i class="fas fa-balance-scale icon-btn" style="margin-left:5px;"></i></div>
                                 <span class="tag">Акция</span>
                             </div>
-                            <img src="./images/it3.png" class="prod-img" alt="Максиколд">
+                            
+                            <div class="card-image-container">
+                                <img src="https://placehold.co/150x150/png?text=Ambene" class="prod-img" alt="Product">
+                                <!-- Белая круглая кнопка -->
+                                <button class="add-btn white floating-btn"><i class="fas fa-plus"></i></button>
+                            </div>
+
                             <div class="price-block">
                                 <span class="current-price">от 579 ₽</span>
                                 <span class="old-price">789 ₽</span>
                             </div>
                             <div class="prod-name">Эссенциале форте Н капс. 300мг №90</div>
                             <div class="prod-manuf">Опелла Хелскеа</div>
-                            <div class="card-actions">
-                                <button class="add-btn primary"><i class="fas fa-plus"></i></button>
-                            </div>
                         </div>
 
-                        <!-- Товар 4: Белая кнопка -->
+                        <!-- Карточка 3: Белая кнопка (Коризалия) -->
+                        <div class="product-card">
+                            <div class="card-top-icons">
+                                <div><i class="far fa-heart icon-btn"></i> <i class="fas fa-balance-scale icon-btn" style="margin-left:5px;"></i></div>
+                                <span class="tag">Акция</span>
+                            </div>
+                            
+                            <div class="card-image-container">
+                                <img src="https://placehold.co/150x150/png?text=Corizalia" class="prod-img" alt="Product">
+                                <!-- Белая кнопка -->
+                                <button class="add-btn white floating-btn"><i class="fas fa-plus"></i></button>
+                            </div>
+
+                            <div class="price-block">
+                                <span class="current-price">от 579 ₽</span>
+                                <span class="old-price">789 ₽</span>
+                            </div>
+                            <div class="prod-name">Коризалия таблетки №40</div>
+                            <div class="prod-manuf">Буарон</div>
+                        </div>
+
+                        <!-- Карточка 4: Зеленая залитая кнопка (Гептрал) -->
                         <div class="product-card">
                             <div class="card-top-icons">
                                 <div><i class="far fa-heart icon-btn"></i></div>
                                 <span class="tag">Акция</span>
                             </div>
-                            <img src="./images/it4.png" class="prod-img" alt="Максиколд">
+                            
+                            <div class="card-image-container">
+                                <img src="https://placehold.co/150x150/png?text=Heptral" class="prod-img" alt="Product">
+                                <!-- Кнопка с заливкой (primary) -->
+                                <button class="add-btn primary floating-btn"><i class="fas fa-plus"></i></button>
+                            </div>
+
                             <div class="price-block">
                                 <span class="current-price">от 579 ₽</span>
                                 <span class="old-price">789 ₽</span>
                             </div>
                             <div class="prod-name">Гептрал таблетки 400мг №20</div>
                             <div class="prod-manuf">Эбботт</div>
-                            <div class="card-actions">
-                                <button class="add-btn white"><i class="fas fa-plus"></i></button>
-                            </div>
                         </div>
+
                     </div>
                 </div>
 
-                <!-- Популярные товары -->
+                <!-- БЛОК "ПОПУЛЯРНЫЕ ТОВАРЫ" -->
                 <div>
                     <h2 class="section-title">Популярные товары</h2>
                     <div class="products-grid">
-                        <!-- Товар 1 -->
                         <div class="product-card">
                             <div class="card-top-icons">
                                 <div><i class="far fa-heart icon-btn"></i></div>
                                 <span class="tag">Акция</span>
                             </div>
-                            <img src="./images/it4.png" class="prod-img" alt="Максиколд">
+                            <div class="card-image-container">
+                                <img src="https://placehold.co/150x150/png?text=Ambene" class="prod-img" alt="Product">
+                                <div class="qty-control floating-qty">
+                                    <button class="qty-btn">−</button>
+                                    <span class="qty-val">1</span>
+                                    <button class="qty-btn">+</button>
+                                </div>
+                            </div>
                             <div class="price-block">
                                 <span class="current-price">от 579 ₽</span>
                                 <span class="old-price">789 ₽</span>
                             </div>
                             <div class="prod-name">Эссенциале форте Н капс. 300мг №90</div>
                             <div class="prod-manuf">Опелла Хелскеа</div>
-                            <div class="card-actions">
-                                <div class="qty-control">
-                                    <button class="qty-btn">−</button>
-                                    <span class="qty-val">1</span>
-                                    <button class="qty-btn">+</button>
-                                </div>
-                            </div>
                         </div>
 
-                        <!-- Товар 2 -->
                         <div class="product-card">
                             <div class="card-top-icons">
                                 <div><i class="far fa-heart icon-btn"></i></div>
                                 <span class="tag">Акция</span>
                             </div>
-                            <img src="./images/it2.png" class="prod-img" alt="Максиколд">
+                            <div class="card-image-container">
+                                <img src="https://placehold.co/150x150/png?text=Heptral" class="prod-img" alt="Product">
+                                <button class="add-btn primary floating-btn"><i class="fas fa-plus"></i></button>
+                            </div>
                             <div class="price-block">
                                 <span class="current-price">от 579 ₽</span>
                                 <span class="old-price">789 ₽</span>
                             </div>
                             <div class="prod-name">Гептрал 400мг</div>
                             <div class="prod-manuf">Эбботт</div>
-                            <div class="card-actions">
-                                <button class="add-btn primary"><i class="fas fa-plus"></i></button>
-                            </div>
                         </div>
                         
-                        <!-- Товар 3 -->
                         <div class="product-card">
                             <div class="card-top-icons">
                                 <div><i class="far fa-heart icon-btn"></i></div>
                                 <span class="tag">Акция</span>
                             </div>
-                            <img src="./images/it4.png" class="prod-img" alt="Максиколд">
+                            <div class="card-image-container">
+                                <img src="https://placehold.co/150x150/png?text=Maxicold" class="prod-img" alt="Product">
+                                <button class="add-btn white floating-btn"><i class="fas fa-plus"></i></button>
+                            </div>
                             <div class="price-block">
                                 <span class="current-price">от 579 ₽</span>
                                 <span class="old-price">789 ₽</span>
                             </div>
                             <div class="prod-name">Максиколд Рино</div>
                             <div class="prod-manuf">Отисифарм</div>
-                            <div class="card-actions">
-                                <button class="add-btn primary"><i class="fas fa-plus"></i></button>
-                            </div>
                         </div>
 
-                        <!-- Товар 4 -->
                         <div class="product-card">
                             <div class="card-top-icons">
                                 <div><i class="far fa-heart icon-btn"></i></div>
                                 <span class="tag">Акция</span>
                             </div>
-                            <img src="./images/it1.png" class="prod-img" alt="Максиколд">
+                            <div class="card-image-container">
+                                <img src="https://placehold.co/150x150/png?text=Teraflex" class="prod-img" alt="Product">
+                                <button class="add-btn primary floating-btn" style="background:#1d1d1d;"><i class="fas fa-plus"></i></button>
+                            </div>
                             <div class="price-block">
                                 <span class="current-price">от 579 ₽</span>
                                 <span class="old-price">789 ₽</span>
                             </div>
                             <div class="prod-name">Терафлекс капсулы</div>
                             <div class="prod-manuf">Байер</div>
-                            <div class="card-actions">
-                                <button class="add-btn dark"><i class="fas fa-plus"></i></button>
-                            </div>
                         </div>
                     </div>
                 </div>
