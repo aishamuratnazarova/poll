@@ -53,7 +53,7 @@
             padding: 8px 0;
             font-size: 13px;
             color: var(--text-gray);
-            display: none; /* Скрываем на совсем маленьких, покажем на десктопе */
+            display: none;
         }
         @media(min-width: 768px) { .top-bar { display: block; } }
 
@@ -83,7 +83,7 @@
         .search-bar {
             flex-grow: 1;
             position: relative;
-            min-width: 280px; /* Чтобы поиск не схлопывался */
+            min-width: 280px;
         }
         .search-bar input {
             width: 100%;
@@ -128,7 +128,7 @@
             padding: 10px 0;
             border-bottom: 1px solid var(--border-color);
             margin-bottom: 20px;
-            overflow-x: auto; /* Горизонтальный скролл на мобильных */
+            overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
         .nav-links ul {
@@ -136,7 +136,7 @@
             gap: 25px;
             font-size: 14px;
             color: var(--text-dark);
-            white-space: nowrap; /* Запрет переноса строк */
+            white-space: nowrap;
             padding-bottom: 5px;
         }
         .nav-links li:hover { color: var(--primary); cursor: pointer; }
@@ -326,21 +326,30 @@
         }
         .prod-manuf { font-size: 12px; color: #999; margin-bottom: 15px; }
 
+        /* --- ИЗМЕНЕНИЯ В КНОПКАХ КАРТОЧКИ --- */
         .card-actions {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-top: auto; /* Прижимает кнопки к низу */
+            /* 1. Кнопка теперь прижата вправо */
+            justify-content: flex-end; 
+            margin-top: auto;
+            width: 100%;
         }
+        
+        /* 2. Поле количества на всю ширину */
         .qty-control {
             display: flex;
             align-items: center;
+            justify-content: space-between; /* Распределяем элементы */
+            width: 100%; /* Во всю ширину */
             border: 1px solid #ddd;
             border-radius: 20px;
-            padding: 5px 10px;
+            padding: 6px 15px;
+            margin-top: 5px; /* Небольшой отступ */
         }
-        .qty-btn { background: none; border: none; font-size: 16px; cursor: pointer; padding: 0 5px;}
-        .qty-val { margin: 0 10px; font-size: 14px; }
+        
+        .qty-btn { background: none; border: none; font-size: 16px; cursor: pointer; padding: 0 5px; color: #555;}
+        .qty-val { margin: 0 10px; font-size: 14px; font-weight: 500; }
         
         /* Основные кнопки */
         .add-btn {
@@ -366,12 +375,11 @@
             color: white; 
         }
 
-        /* --- НОВЫЙ СТИЛЬ: Белая с бирюзовым плюсом --- */
         .add-btn.white {
             background-color: #fff;
             color: var(--primary);
-            border: 1px solid #eee; /* Легкая рамка */
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08); /* Тень для объема */
+            border: 1px solid #eee;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
         }
         .add-btn.white:hover {
             border-color: var(--primary);
@@ -434,13 +442,12 @@
 
         /* --- MEDIA QUERIES (АДАПТИВНОСТЬ) --- */
 
-        /* Планшеты (меньше 1024px) */
         @media (max-width: 1024px) {
             .layout-grid {
-                grid-template-columns: 1fr; /* Сайдбар переносится вниз */
+                grid-template-columns: 1fr;
             }
             .sidebar-cart {
-                display: none; /* Скроем корзину на планшетах для экономии места, или можно оставить внизу */
+                display: none;
             }
             .categories-grid {
                 grid-template-columns: repeat(3, 1fr);
@@ -450,7 +457,6 @@
             }
         }
 
-        /* Мобильные (меньше 768px) */
         @media (max-width: 768px) {
             .header-grid {
                 flex-direction: column;
@@ -469,19 +475,29 @@
             .hero-text h2 { font-size: 24px; }
             .hero-img-placeholder { width: 100%; height: 200px; }
             
+            /* 3. Горизонтальный скролл категорий на мобильном */
             .categories-grid {
-                grid-template-columns: repeat(2, 1fr);
+                display: flex; /* Flex вместо Grid */
+                grid-template-columns: none;
+                overflow-x: auto; /* Скролл */
+                gap: 15px;
+                padding-bottom: 10px;
+                -webkit-overflow-scrolling: touch; /* Плавный скролл на iOS */
             }
+            .cat-card {
+                min-width: 160px; /* Фиксированная ширина карточки */
+                flex-shrink: 0; /* Чтобы не сжимались */
+            }
+
             .products-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 10px;
             }
             .product-card { padding: 10px; }
             .prod-img { height: 100px; }
-            .qty-control { padding: 2px 5px; }
             
             .footer-grid {
-                grid-template-columns: 1fr; /* Футер в одну колонку */
+                grid-template-columns: 1fr;
                 gap: 20px;
             }
             .footer-bottom {
@@ -490,11 +506,8 @@
             }
         }
 
-        /* Очень маленькие экраны (меньше 480px) */
         @media (max-width: 480px) {
-            .categories-grid {
-                grid-template-columns: 1fr; /* Категории в 1 колонку */
-            }
+             /* Категории уже настроены выше */
         }
 
     </style>
@@ -582,7 +595,7 @@
             </aside>
         </div>
 
-        <!-- Popular Categories -->
+        <!-- Popular Categories (Теперь скроллится на мобильных) -->
         <h2 class="section-title">Популярные категории</h2>
         <div class="categories-grid">
             <div class="cat-card">
@@ -607,7 +620,7 @@
         <h2 class="section-title">Вы искали</h2>
         <div class="products-section">
             <div class="products-grid">
-                <!-- Product 1 -->
+                <!-- Product 1: С полем количества -->
                 <div class="product-card">
                     <div class="card-top-icons">
                         <div><i class="far fa-heart icon-btn"></i> <i class="fas fa-balance-scale icon-btn" style="margin-left:5px;"></i></div>
@@ -621,6 +634,7 @@
                     <div class="prod-name">Эссенциале форте Н капс. 300мг №90</div>
                     <div class="prod-manuf">Опелла Хелскеа</div>
                     <div class="card-actions">
+                        <!-- Поле количества на всю ширину -->
                         <div class="qty-control">
                             <button class="qty-btn">−</button>
                             <span class="qty-val">1</span>
@@ -643,6 +657,7 @@
                     <div class="prod-name">Эссенциале форте Н капс. 300мг №90</div>
                     <div class="prod-manuf">Опелла Хелскеа</div>
                     <div class="card-actions">
+                        <!-- Кнопка прижата вправо -->
                         <button class="add-btn primary"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
@@ -661,11 +676,12 @@
                     <div class="prod-name">Эссенциале форте Н капс. 300мг №90</div>
                     <div class="prod-manuf">Опелла Хелскеа</div>
                     <div class="card-actions">
+                         <!-- Кнопка прижата вправо -->
                         <button class="add-btn primary"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
 
-                <!-- Product 4: ЗДЕСЬ ИЗМЕНЕНА КНОПКА (Белая с бирюзовым) -->
+                <!-- Product 4: Белая кнопка -->
                 <div class="product-card">
                     <div class="card-top-icons">
                         <div><i class="far fa-heart icon-btn"></i></div>
@@ -679,7 +695,7 @@
                     <div class="prod-name">Гептрал таблетки 400мг №20</div>
                     <div class="prod-manuf">Эбботт</div>
                     <div class="card-actions">
-                        <!-- Класс .white добавлен здесь -->
+                         <!-- Кнопка прижата вправо -->
                         <button class="add-btn white"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
